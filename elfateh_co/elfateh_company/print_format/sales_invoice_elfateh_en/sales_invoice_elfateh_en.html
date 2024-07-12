@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sales Invoice</title>
+        <link rel="stylesheet" href="elfateh_co/elfateh_company/print_format/sales_invoice_elfateh_en/sales_invoice_elfateh_en.css">
+    </head>
+        
+<body>
+<div class="invoice-header">
+    <div class="invoice-header_left">
+        <img src="/elfateh_co/public/arabic_logo.png" alt="Logo" class="brand-logo">
+        <p>Desouk, Kafr El-Sheikh</p>
+        <p>Dept.Acct.: Ahmed Elsotaery | 01092995002 | ahmed.elsotaery@elfateh.site</p>
+        <p>Dept.Manager: Ahmed Rjb | 01098951400</p>
+</div>
+<div class="invoice-header_right">
+        <h1>INVOICE</h1>
+        <p>Invoice No: {{ doc.name }}</p>
+        <p>Invoice Date:{{ doc.creation }}</p>
+        <p>Payment due: <strong>{{doc.due_date}}</strong></p>
+        <p>Client:<strong> {{ doc.customer_name }}</strong></p>
+        <p> client balance   {{ doc.custom_party_balance }}</p>
+</div>
+</div>
+
+<table>
+<thead>
+    <tr>
+        <th style="width: 5%;">No</th>
+        <th>Product</th>
+        <th style="width: 15%;">Unit Price</th>
+        <th style="width: 15%;">Quantity</th>
+        <th style="width: 15%;">Amount</th>
+    </tr>
+</thead>
+<tbody>
+    {% for row in doc.items %}
+    <tr>
+        <td>{{ row.idx }}</td>
+        <td>{{ row.item_name }}</td>
+        <td>{{ row.rate }}</td>
+        <td>{{ row.qty }}</td>
+        <td>{{ row.amount }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<table>
+    <tr class="section-header" style="border-top: hidden;">
+        <th style="text-align: right; margin-bottom: 0pc;">Total</th>
+        <td >{{ doc.base_total }}</td>
+    </tr>
+    <tr class="section-header">
+        <th style="text-align: right; width: 85%;">discount</th>
+        <td>{{ doc.base_discount_amount }}</td>
+    </tr>
+    <tr class="section-header">
+        <th style="text-align: right; width: 85%;">Grand Total</th>
+        <td>{{ doc.base_grand_total}}</td>
+    </tr>
+</table>
+
+</body>
+</html>
